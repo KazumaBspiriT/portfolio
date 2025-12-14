@@ -8,7 +8,7 @@ A minimalist, DevOps and cloud-themed portfolio website showcasing my experience
 - 📱 Fully responsive layout
 - ⚡ Built with React and Vite for fast performance
 - 🎭 Smooth animations and transitions
-- 🌙 Dark theme with blue/cyan accents
+- 🌙 Dark theme with emerald green accents
 - 📋 All sections from resume integrated
 
 ## Tech Stack
@@ -84,6 +84,17 @@ portfolio/
 - Modify colors in `tailwind.config.js`
 - Adjust styling in `src/index.css`
 - Add or remove sections in `src/App.jsx`
+
+## Docker
+
+The portfolio is containerized and available on Docker Hub:
+
+```bash
+docker pull sumanthreddy2324/portfolio-website:latest
+docker run -d -p 80:80 --name portfolio sumanthreddy2324/portfolio-website:latest
+```
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
 
 ## License
 
