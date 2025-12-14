@@ -16,15 +16,17 @@ const Projects = () => {
     },
     {
       title: 'Multi-Cloud Deployment Automation',
-      description: 'Developing an automation framework using Terraform & Ansible to provision and deploy apps across AWS, Azure, and GCP. Implementing CI/CD with GitLab pipelines for infrastructure provisioning and containerized workloads.',
-      technologies: ['Terraform', 'Ansible', 'Docker', 'Kubernetes', 'GitLab CI/CD', 'AWS', 'Azure', 'GCP'],
+      description: 'Developed a comprehensive automation framework using Terraform & Ansible to provision and deploy applications across AWS, Azure, and GCP. Implemented CI/CD with GitHub Actions for infrastructure provisioning, containerized workloads, and multi-cloud deployments.',
+      technologies: ['Terraform', 'Ansible', 'Docker', 'Kubernetes', 'GitHub Actions', 'AWS', 'Azure', 'GCP'],
       icon: Cloud,
       highlights: [
-        '50% faster deployments target',
-        'Multi-cloud infrastructure',
-        'Full CI/CD pipeline',
+        '50% faster deployments achieved',
+        'Multi-cloud infrastructure (AWS, Azure, GCP)',
+        'Full CI/CD pipeline with GitHub Actions',
+        'Supports Kubernetes, Container, and Static deployments',
       ],
-      status: 'In Progress',
+      status: 'Completed',
+      githubUrl: 'https://github.com/KazumaBspiriT/multicloudproject',
     },
   ]
 
@@ -61,11 +63,28 @@ const Projects = () => {
                         </div>
                         <Sparkles className="absolute -top-1 -right-1 text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity animate-pulse" size={16} />
                       </div>
-                      {project.status && (
-                        <span className="px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-mono rounded-full animate-pulse">
-                          {project.status}
-                        </span>
-                      )}
+                      <div className="flex items-center gap-2">
+                        {project.status && (
+                          <span className={`px-3 py-1 text-xs font-mono rounded-full ${
+                            project.status === 'Completed' 
+                              ? 'bg-devops-green/20 text-devops-green' 
+                              : 'bg-emerald-500/20 text-emerald-400 animate-pulse'
+                          }`}>
+                            {project.status}
+                          </span>
+                        )}
+                        {project.githubUrl && (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2 glass-effect border border-devops-light hover:border-devops-green rounded-lg text-gray-400 hover:text-devops-green transition-all duration-300 transform hover:scale-110 group/link"
+                            aria-label="View on GitHub"
+                          >
+                            <Github size={20} className="group-hover/link:text-emerald-400 transition-colors" />
+                          </a>
+                        )}
+                      </div>
                     </div>
 
                     <h3 className="text-2xl font-bold text-gray-100 mb-3 group-hover:text-devops-green transition-colors">

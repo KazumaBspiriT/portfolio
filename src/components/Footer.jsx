@@ -6,7 +6,7 @@ const Footer = () => {
   const contactInfo = [
     { icon: Mail, text: 'sumanthusa2324@gmail.com', href: 'mailto:sumanthusa2324@gmail.com' },
     { icon: Phone, text: '513-200-9463', href: 'tel:513-200-9463' },
-    { icon: Linkedin, text: 'linkedin.com/in/sumanth-reddy', href: 'https://linkedin.com/in/sumanth-reddy' },
+    { icon: Linkedin, text: 'linkedin.com/in/sumanth-reddy-busireddy-654a801b0', href: 'https://www.linkedin.com/in/sumanth-reddy-busireddy-654a801b0/' },
   ]
 
   return (
