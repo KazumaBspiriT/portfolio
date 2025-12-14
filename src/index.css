@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-devops-dark text-gray-100 font-sans;
+  }
+  
+  * {
+    @apply scroll-smooth;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-devops-green to-emerald-400;
+  }
+  
+  .glass-effect {
+    @apply bg-devops-gray/50 backdrop-blur-sm border border-devops-light/30;
+  }
+  
+  .section-padding {
+    @apply py-20 px-4 sm:px-6 lg:px-8;
+  }
+}
+
