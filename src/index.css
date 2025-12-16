@@ -19,9 +19,9 @@
   .text-glow {
     text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
   }
-  
+
   .card-gradient {
-    background: linear-gradient(180deg, rgba(31,31,31,0.5) 0%, rgba(12,12,12,0.5) 100%);
+    background: linear-gradient(180deg, rgba(31, 31, 31, 0.5) 0%, rgba(12, 12, 12, 0.5) 100%);
     backdrop-filter: blur(10px);
   }
 
@@ -29,21 +29,31 @@
   ::-webkit-scrollbar {
     width: 10px;
   }
+
   ::-webkit-scrollbar-track {
     @apply bg-console-bg;
   }
+
   ::-webkit-scrollbar-thumb {
     @apply bg-console-header rounded;
     border: 2px solid #0c0c0c;
   }
+
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-gray-600;
   }
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 .animate-blink {
@@ -64,7 +74,51 @@
 }
 
 @keyframes scanline {
-  0% { transform: translateY(-100vh); }
-  100% { transform: translateY(100vh); }
+  0% {
+    transform: translateY(-100vh);
+  }
+
+  100% {
+    transform: translateY(100vh);
+  }
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+@keyframes flow-packet {
+  0% {
+    left: 0%;
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+.animate-flow-packet {
+  animation: flow-packet 1.5s linear infinite;
+}

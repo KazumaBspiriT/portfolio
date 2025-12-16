@@ -7,7 +7,7 @@ const Terminal = () => {
         { type: 'system', content: 'Welcome to sumanth.dev cloud shell. Type "help" for instructions.' },
     ])
     const [input, setInput] = useState('')
-    const bottomRef = useRef(null)
+    const containerRef = useRef(null)
 
     const commands = {
         help: 'Available commands: about, projects, skills, contact, clear, whoami, exit',
@@ -22,6 +22,7 @@ const Terminal = () => {
 
     const handleCommand = (e) => {
         if (e.key === 'Enter') {
+            e.preventDefault()
             const cmd = input.trim().toLowerCase()
             let response = commands[cmd] || `command not found: ${cmd}`
 
@@ -39,7 +40,9 @@ const Terminal = () => {
     }
 
     useEffect(() => {
-        bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+        if (containerRef.current) {
+            containerRef.current.scrollTop = containerRef.current.scrollHeight
+        }
     }, [history])
 
     return (
@@ -58,7 +61,10 @@ const Terminal = () => {
             </div>
 
             {/* Terminal Body */}
-            <div className="p-4 h-[400px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent bg-black/50 backdrop-blur-sm">
+            <div
+                ref={containerRef}
+                className="p-4 h-[400px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent bg-black/50 backdrop-blur-sm"
+            >
                 {history.map((entry, i) => (
                     <div key={i} className="mb-2">
                         {entry.type === 'input' ? (
@@ -89,7 +95,6 @@ const Terminal = () => {
                         spellCheck="false"
                     />
                 </div>
-                <div ref={bottomRef} />
             </div>
         </div>
     )

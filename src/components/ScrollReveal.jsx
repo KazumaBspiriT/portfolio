@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 
-const ScrollReveal = ({ children, delay = 0, direction = 'up' }) => {
-  const [isVisible, setIsVisible] = useState(false)
+const ScrollReveal = ({ children, delay = 0, direction = 'up', className = '' }) => {
+  // Default to true to ensure content is visible even if observer fails or JS lags
+  const [isVisible, setIsVisible] = useState(true)
   const ref = useRef(null)
 
   useEffect(() => {
@@ -46,6 +47,7 @@ const ScrollReveal = ({ children, delay = 0, direction = 'up' }) => {
   return (
     <div
       ref={ref}
+      className={className}
       style={{
         transform: getTransform(),
         opacity: isVisible ? 1 : 0,
