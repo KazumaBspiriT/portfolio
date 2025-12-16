@@ -3,7 +3,7 @@
 ## Docker Deployment
 
 ### Prerequisites
-- Docker installed and running
+- Docker installed and runninggg
 - Logged into Docker Hub: `docker login`
 
 ### Build and Push to Docker Hub
