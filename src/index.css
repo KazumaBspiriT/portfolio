@@ -4,89 +4,67 @@
 
 @layer base {
   body {
-    @apply bg-devops-dark text-gray-100 font-sans;
-  }
-  
-  * {
-    @apply scroll-smooth;
+    @apply bg-console-bg text-console-text font-mono overflow-x-hidden;
   }
 }
 
 @layer utilities {
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-devops-green to-emerald-400;
-    background-size: 200% 200%;
-    animation: gradient-shift 3s ease infinite;
+  .bg-grid {
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, #1f1f1f 1px, transparent 1px),
+      linear-gradient(to bottom, #1f1f1f 1px, transparent 1px);
+    mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
   }
   
-  .glass-effect {
-    @apply bg-devops-gray/50 backdrop-blur-sm border border-devops-light/30;
+  .card-gradient {
+    background: linear-gradient(180deg, rgba(31,31,31,0.5) 0%, rgba(12,12,12,0.5) 100%);
+    backdrop-filter: blur(10px);
   }
-  
-  .section-padding {
-    @apply py-20 px-4 sm:px-6 lg:px-8;
-  }
-}
 
-@keyframes gradient-shift {
-  0%, 100% {
-    background-position: 0% 50%;
+  /* Scrollbar for Webkit */
+  ::-webkit-scrollbar {
+    width: 10px;
   }
-  50% {
-    background-position: 100% 50%;
+  ::-webkit-scrollbar-track {
+    @apply bg-console-bg;
   }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
+  ::-webkit-scrollbar-thumb {
+    @apply bg-console-header rounded;
+    border: 2px solid #0c0c0c;
   }
-  to {
-    opacity: 1;
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-600;
   }
 }
 
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
-@keyframes glow {
-  0%, 100% {
-    text-shadow: 0 0 5px rgba(16, 185, 129, 0.5);
-  }
-  50% {
-    text-shadow: 0 0 20px rgba(16, 185, 129, 0.8), 0 0 30px rgba(16, 185, 129, 0.5);
-  }
+.animate-blink {
+  animation: blink 1s step-end infinite;
 }
 
-.animate-fade-in {
-  animation: fade-in 1s ease-out;
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-color: rgba(0, 255, 0, 0.1);
+  opacity: 0.4;
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
 }
 
-.animate-slide-up {
-  animation: slide-up 1s ease-out;
-}
-
-.animate-fade-in-delay {
-  animation: fade-in 1s ease-out 0.3s both;
-}
-
-.animate-fade-in-delay-2 {
-  animation: fade-in 1s ease-out 0.6s both;
-}
-
-.animate-glow {
-  animation: glow 2s ease-in-out infinite;
-}
-
-.animate-gradient {
-  animation: gradient-shift 3s ease infinite;
+@keyframes scanline {
+  0% { transform: translateY(-100vh); }
+  100% { transform: translateY(100vh); }
 }
 

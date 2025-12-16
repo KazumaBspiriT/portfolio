@@ -1,133 +1,116 @@
-import { Code, Cloud, Settings, Network } from 'lucide-react'
+import { Code, Cloud, Settings, Network, Cpu, Database } from 'lucide-react'
 import ScrollReveal from './ScrollReveal'
-import { useState, useEffect } from 'react'
 
 const Skills = () => {
-  const skillCategories = [
-    {
-      title: 'Languages',
-      icon: Code,
-      skills: ['Go', 'Perl', 'Bash', 'Python', 'JavaScript', 'YAML'],
+  const systemConfig = {
+    languages: {
+      type: 'runtime',
+      modules: ['Go', 'Python', 'Bash', 'JavaScript'],
+      version: 'latest'
     },
-    {
-      title: 'Cloud & DevOps',
-      icon: Cloud,
-      skills: ['AWS', 'Azure', 'Docker', 'Podman', 'Kubernetes', 'Ansible', 'Terraform', 'GitHub Actions', 'GitLab CI/CD'],
+    infrastructure: {
+      type: 'core',
+      providers: ['AWS', 'Azure', 'GCP'],
+      containerization: ['Docker', 'Podman', 'K8s'],
+      iac: ['Terraform', 'Ansible']
     },
-    {
-      title: 'Infrastructure',
-      icon: Settings,
-      skills: ['F5 BIG-IP (LTM, GTM, ASM)', 'Azure Load Balancer', 'NGINX Ingress', 'RabbitMQ', 'Consul', 'Vault', 'RHEL8', 'Linux'],
-    },
-    {
-      title: 'Networking & Tools',
-      icon: Network,
-      skills: ['Wireshark', 'TCP Dump', 'Cisco Packet Tracer', 'Vim', 'VS Code', 'Git', 'Azure Repos'],
-    },
-  ]
-
-  const [visibleSkills, setVisibleSkills] = useState({})
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const skillId = entry.target.dataset.skillId
-            setVisibleSkills((prev) => ({ ...prev, [skillId]: true }))
-          }
-        })
-      },
-      { threshold: 0.1 }
-    )
-
-    skillCategories.forEach((_, idx) => {
-      const element = document.querySelector(`[data-skill-id="${idx}"]`)
-      if (element) observer.observe(element)
-    })
-
-    return () => observer.disconnect()
-  }, [])
+    networking: {
+      type: 'transport',
+      protocols: ['TCP/IP', 'HTTP/S', 'DNS'],
+      tools: ['F5 BIG-IP', 'NGINX', 'Wireshark']
+    }
+  }
 
   return (
-    <section id="skills" className="section-padding bg-devops-gray/30 relative">
+    <section id="skills" className="section-padding bg-console-bg border-t border-console-header relative overflow-hidden">
+      {/* Background Decoration */}
+      <div className="absolute right-0 top-0 w-1/3 h-full opacity-5 pointer-events-none">
+        <div className="h-full w-full bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,#00ff00_10px,#00ff00_11px)]"></div>
+      </div>
+
       <div className="max-w-7xl mx-auto">
         <ScrollReveal>
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              <span className="text-gradient">Technical Skills</span>
+          <div className="flex items-center gap-4 mb-8 border-b border-console-header pb-4">
+            <h2 className="text-2xl font-mono font-bold text-console-text">
+              <span className="text-console-green">./</span>system_configuration
             </h2>
-            <div className="w-24 h-1 bg-devops-green mx-auto relative">
-              <div className="absolute inset-0 bg-devops-green blur-lg opacity-50"></div>
-            </div>
           </div>
         </ScrollReveal>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {skillCategories.map((category, idx) => {
-            const Icon = category.icon
-            return (
-              <ScrollReveal key={idx} delay={idx * 100} direction="up">
-                <div
-                  data-skill-id={idx}
-                  className="group glass-effect rounded-lg p-6 hover:border-devops-green transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 relative overflow-hidden"
-                >
-                  <div className="absolute inset-0 bg-devops-green/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="flex items-center mb-4 relative z-10">
-                    <Icon className="text-devops-green mr-3 group-hover:scale-110 transition-transform duration-300" size={24} />
-                    <h3 className="text-xl font-semibold text-gray-100">{category.title}</h3>
-                  </div>
-                  <ul className="space-y-2 relative z-10">
-                    {category.skills.map((skill, sIdx) => (
-                      <li 
-                        key={sIdx} 
-                        className="text-gray-400 text-sm flex items-center group/item"
-                        style={{
-                          opacity: visibleSkills[idx] ? 1 : 0,
-                          transform: visibleSkills[idx] ? 'translateX(0)' : 'translateX(-20px)',
-                          transition: `all 0.3s ease ${sIdx * 0.05}s`
-                        }}
-                      >
-                        <span className="text-devops-green mr-2 group-hover/item:text-emerald-400 transition-colors">▹</span>
-                        <span className="group-hover/item:text-gray-300 transition-colors">{skill}</span>
-                      </li>
+        <div className="grid md:grid-cols-2 gap-8 font-mono">
+
+          {/* Left Column: Visual Stack */}
+          <ScrollReveal direction="left">
+            <div className="bg-console-header/30 border border-console-header rounded p-6">
+              <div className="flex items-center gap-2 mb-4 text-console-cyan">
+                <Cpu size={18} />
+                <h3 className="uppercase tracking-widest text-sm font-bold">Stack Trace</h3>
+              </div>
+
+              <div className="space-y-4">
+                <div className="group">
+                  <div className="text-xs text-console-text/50 mb-1">layer: platform</div>
+                  <div className="flex flex-wrap gap-2">
+                    {['Kubernetes', 'AWS', 'Linux (RHEL8)'].map(s => (
+                      <span key={s} className="px-2 py-1 bg-console-blue/10 text-console-blue border border-console-blue/30 rounded text-xs hover:bg-console-blue/20 transition-colors cursor-crosshair">
+                        {s}
+                      </span>
                     ))}
-                  </ul>
+                  </div>
                 </div>
-              </ScrollReveal>
-            )
-          })}
-        </div>
 
-        <ScrollReveal delay={400}>
-          <div className="mt-12 glass-effect rounded-lg p-8 hover:border-devops-green transition-all duration-300">
-            <h3 className="text-2xl font-semibold text-gray-100 mb-6">Core Concepts</h3>
-            <div className="flex flex-wrap gap-3">
-              {[
-                'Cloud Computing',
-                'Infrastructure as Code (IaC)',
-                'Containerization',
-                'Microservices Architecture',
-                'Service Networking',
-                'Load Balancing',
-                'CI/CD Pipelines',
-                'Configuration Management',
-                'Identity & Access Management (IAM)',
-                'Network Protocols',
-                'Monitoring & Logging',
-                'Agile Methodology',
-                'DevSecOps',
-              ].map((concept, idx) => (
-                <span
-                  key={idx}
-                  className="group px-4 py-2 bg-devops-light/50 hover:bg-devops-green/20 text-gray-300 hover:text-devops-green text-sm rounded-lg font-mono transition-all duration-300 transform hover:scale-105 cursor-default"
-                >
-                  {concept}
-                </span>
-              ))}
+                <div className="group">
+                  <div className="text-xs text-console-text/50 mb-1">layer: automation</div>
+                  <div className="flex flex-wrap gap-2">
+                    {['Terraform', 'Ansible', 'GitHub Actions'].map(s => (
+                      <span key={s} className="px-2 py-1 bg-console-green/10 text-console-green border border-console-green/30 rounded text-xs hover:bg-console-green/20 transition-colors cursor-crosshair">
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="group">
+                  <div className="text-xs text-console-text/50 mb-1">layer: observability</div>
+                  <div className="flex flex-wrap gap-2">
+                    {['Prometheus', 'Grafana', 'Wireshark'].map(s => (
+                      <span key={s} className="px-2 py-1 bg-console-yellow/10 text-console-yellow border border-console-yellow/30 rounded text-xs hover:bg-console-yellow/20 transition-colors cursor-crosshair">
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+
+          {/* Right Column: JSON Config View */}
+          <ScrollReveal delay={200} direction="right">
+            <div className="bg-[#0a0a0a] border border-console-header rounded p-4 relative group">
+              <div className="absolute top-2 right-2 flex gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-green-500/50"></div>
+              </div>
+              <pre className="text-xs sm:text-sm text-console-text/80 overflow-x-auto">
+                <code>
+                  <span className="text-console-blue">const</span> <span className="text-console-yellow">current_config</span> = {'{'}
+                  {Object.entries(systemConfig).map(([key, val], i) => (
+                    <div key={key} className="pl-4">
+                      <span className="text-console-text">"{key}"</span>: <span className="text-console-green">"enabled"</span>,
+                      <span className="text-console-text/50">// loaded: {val.modules?.join(', ') || val.providers?.join(', ')}...</span>
+                    </div>
+                  ))}
+                  {'}'}
+                </code>
+              </pre>
+              <div className="mt-4 pt-4 border-t border-console-header/30 text-xs text-console-text/40">
+                <span className="animate-pulse">●</span> system check passed: ready for deployment
+              </div>
+            </div>
+          </ScrollReveal>
+
+        </div>
       </div>
     </section>
   )

@@ -1,81 +1,82 @@
 import { useState, useEffect } from 'react'
-import { Menu, X, Terminal } from 'lucide-react'
+import { Menu, X, Terminal, Server, Wifi, User, Globe } from 'lucide-react'
 
 const Navbar = ({ scrollY }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState('')
-
-  const navItems = [
-    { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Education', href: '#education' },
-    { name: 'Certifications', href: '#certifications' },
-  ]
+  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString())
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = navItems.map(item => item.href.substring(1))
-      const current = sections.find(section => {
-        const element = document.getElementById(section)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          return rect.top <= 100 && rect.bottom >= 100
-        }
-        return false
-      })
-      setActiveSection(current || '')
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    handleScroll()
-    return () => window.removeEventListener('scroll', handleScroll)
+    const timer = setInterval(() => {
+      setCurrentTime(new Date().toLocaleTimeString())
+    }, 1000)
+    return () => clearInterval(timer)
   }, [])
 
+  const navItems = [
+    { name: 'overview', href: '#about', icon: Terminal },
+    { name: 'deployments', href: '#projects', icon: Server },
+    { name: 'infrastructure', href: '#skills', icon: Wifi },
+    { name: 'documentation', href: '#experience', icon: Globe },
+  ]
+
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      scrollY > 50 ? 'glass-effect shadow-lg backdrop-blur-md' : 'bg-transparent'
-    }`}>
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 border-b border-console-header ${scrollY > 20 ? 'bg-console-bg/95 backdrop-blur-md' : 'bg-console-bg'
+      }`}>
+      {/* Top Warning Banner - Optional decoration */}
+      <div className="bg-console-header text-[10px] text-center text-console-text py-0.5 tracking-widest uppercase">
+        System Status: Operational | Region: us-east-1
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex-shrink-0">
-            <a href="#" className="group flex items-center text-xl font-mono font-semibold text-gradient hover:scale-105 transition-transform duration-300">
-              <Terminal className="mr-2 text-devops-green group-hover:text-emerald-400 transition-colors" size={20} />
-              {'>'} sumanth.dev
+        <div className="flex justify-between items-center h-14">
+
+          {/* Logo / Brand */}
+          <div className="flex items-center flex-shrink-0 gap-4">
+            <a href="#" className="flex items-center text-sm font-mono font-bold text-console-green hover:text-console-cyan transition-colors">
+              <Terminal className="mr-2" size={16} />
+              root@sumanth.dev:~#
             </a>
+
+            <div className="hidden md:flex items-center px-2 py-0.5 rounded textxs bg-console-header text-console-text border border-console-text/20">
+              <span className="w-2 h-2 rounded-full bg-console-green mr-2 animate-pulse"></span>
+              HEAD
+            </div>
           </div>
-          
+
           {/* Desktop Menu */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
-              {navItems.map((item) => {
-                const isActive = activeSection === item.href.substring(1)
-                return (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className={`relative group text-gray-300 hover:text-devops-green transition-all duration-300 font-medium ${
-                      isActive ? 'text-devops-green' : ''
-                    }`}
-                  >
-                    {item.name}
-                    <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-devops-green transition-all duration-300 group-hover:w-full ${
-                      isActive ? 'w-full' : ''
-                    }`}></span>
-                  </a>
-                )
-              })}
+          <div className="hidden md:flex items-center space-x-6">
+            <div className="flex items-center space-x-1">
+              {navItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="px-3 py-1.5 text-xs font-mono text-console-text hover:text-console-green hover:bg-console-header rounded transition-all duration-200 flex items-center gap-2 group"
+                >
+                  <item.icon size={12} className="group-hover:text-console-green transition-colors" />
+                  ./{item.name}
+                </a>
+              ))}
+            </div>
+
+            <div className="h-6 w-px bg-console-header mx-2"></div>
+
+            <div className="flex items-center gap-3 text-xs font-mono text-console-text/60">
+              <span className="flex items-center gap-1">
+                <User size={12} />
+                visitor
+              </span>
+              <span>{currentTime}</span>
             </div>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center">
+            <span className="text-xs font-mono text-console-text mr-4">{currentTime}</span>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-devops-green transition-colors p-2 rounded-lg hover:bg-devops-light/20"
+              className="text-console-text hover:text-console-green transition-colors p-1"
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
@@ -83,17 +84,17 @@ const Navbar = ({ scrollY }) => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden glass-effect border-t border-devops-light/30 animate-fade-in">
+        <div className="md:hidden bg-console-bg border-b border-console-header animate-slide-up">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            {navItems.map((item, idx) => (
+            {navItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="block px-3 py-2 text-gray-300 hover:text-devops-green hover:bg-devops-light/20 rounded-md transition-all duration-300 transform hover:translate-x-2"
-                style={{ animationDelay: `${idx * 0.05}s` }}
+                className="block px-3 py-2 text-sm font-mono text-console-text hover:text-console-green hover:bg-console-header rounded-md transition-all flex items-center gap-2"
               >
-                {item.name}
+                <item.icon size={14} />
+                ./{item.name}
               </a>
             ))}
           </div>
