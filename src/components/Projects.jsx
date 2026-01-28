@@ -1,4 +1,4 @@
-import { ExternalLink, Github, Cloud, Network, Server, Play, Circle, Box, Activity, Layers, Cpu, Database, Shield } from 'lucide-react'
+import { ExternalLink, Github, Cloud, Network, Server, Play, Circle, Box, Activity, Layers, Cpu, Database, Shield, Monitor, BarChart3, Webhook } from 'lucide-react'
 
 import { useState } from 'react'
 import MultiCloudArchitecture from './MultiCloudArchitecture'
@@ -9,47 +9,105 @@ const Projects = () => {
 
   const projects = [
     {
-      id: 'svc-01-vxlan',
-      name: 'vxlan-migration-service',
-      type: 'Network Migration',
-      status: 'completed',
-      uptime: '100%',
-      region: 'on-prem',
-      description: 'Migrated 100+ network devices from VXLAN to IPVLAN, improving network efficiency by 20%. Automated with Ansible.',
-      tech: ['Ansible', 'F5 BIG-IP', 'Linux'],
+      id: 'svc-01-ops-dashboard',
+      name: 'multicloud-ops-dashboard',
+      type: 'Operations Platform',
+      status: 'active',
+      uptime: '99.9%',
+      region: 'aws-us-east-1',
+      description: 'Unified resource management platform for AWS, Azure, and GCP using Go (Gin), reducing context switching by 40%. Real-time EC2 lifecycle management with WebSocket logs and custom observability stack.',
+      tech: ['Go', 'React', 'TypeScript', 'Docker', 'AWS SDK', 'Prometheus', 'Grafana'],
       github: null,
-      stats: { efficiency: '+20%', devices: 105 }
+      stats: { efficiency: '+40%', clouds: 3 },
+      details: {
+        features: [
+          'Unified Multi-Cloud Resource Management',
+          'Real-time EC2 Lifecycle Management (Start, Stop, Reboot)',
+          'Live WebSocket Log Streaming',
+          'Custom Prometheus Middleware for API Metrics',
+          'Grafana Dashboards for Latency Visualization',
+          'Dynamic Cost Analysis Charts (React/TypeScript)',
+        ],
+        modes: [
+          { name: 'Backend', desc: 'Go (Gin) REST API', icon: Server },
+          { name: 'Frontend', desc: 'React/TypeScript SPA', icon: Monitor },
+          { name: 'Observability', desc: 'Prometheus + Grafana', icon: BarChart3 },
+        ],
+        stack: {
+          'Backend': 'Go 1.21+, Gin Framework',
+          'Frontend': 'React 18, TypeScript',
+          'Infrastructure': 'Docker, AWS SDK v2',
+          'Monitoring': 'Prometheus, Grafana',
+          'Real-time': 'WebSocket (Gorilla)'
+        }
+      }
     },
     {
-      id: 'svc-02-multicloud',
-      name: 'multicloud-deploy-bot',
+      id: 'svc-02-hybrid-cloud',
+      name: 'hybrid-cloud-orchestration',
       type: 'Infrastructure Automation',
       status: 'active',
       uptime: '99.99%',
-      region: 'global-edge',
-      description: 'Comprehensive automation framework to deploy containerized applications across AWS, Azure, and GCP using Terraform & Ansible.',
-      tech: ['Terraform', 'K8s', 'Docker', 'AWS/GCP'],
-      github: 'https://github.com/KazumaBspiriT/multicloudproject',
-      hasArchitecture: true,
-      stats: { speed: '+50%', clouds: 3 },
+      region: 'aws-global',
+      description: 'End-to-end hybrid cloud orchestration using Terraform to provision AWS EKS for dynamic microservices and S3 for static hosting. State locking via DynamoDB and automated CI/CD with GitHub Actions.',
+      tech: ['Terraform', 'Ansible', 'AWS EKS', 'S3', 'DynamoDB', 'GitHub Actions'],
+      github: null,
+      stats: { speed: '+50%', services: 'multi' },
       details: {
         features: [
-          'Multi-Cloud Support (AWS, Azure, GCP)',
-          'Automated Image Mirroring (Docker Hub -> ECR/ACR)',
-          'Custom Domain & SSL Automation',
-          'Cost Optimization (NAT Gateway toggles)',
+          'Multi-Cloud Infrastructure (AWS EKS)',
+          'Dynamic Microservices Deployment',
+          'Static Content Hosting (S3)',
+          'State Locking via DynamoDB',
+          'Route 53 DNS Management',
+          'Automated Docker Builds',
+          'Kubernetes Deployment Pipelines',
         ],
         modes: [
-          { name: 'Kubernetes', desc: 'EKS (AWS) & GKE (GCP)', icon: Layers },
-          { name: 'Container', desc: 'App Runner, Cloud Run, ACI', icon: Box },
-          { name: 'Static', desc: 'S3, Cloud Storage, Azure Blob', icon: Database },
+          { name: 'IaC', desc: 'Terraform Provisioning', icon: Layers },
+          { name: 'Config', desc: 'Ansible Automation', icon: Box },
+          { name: 'CI/CD', desc: 'GitHub Actions', icon: Webhook },
         ],
         stack: {
           'IaC': 'Terraform >= 1.0',
           'Config': 'Ansible >= 2.9',
           'CI/CD': 'GitHub Actions',
           'Container': 'Docker & Kubernetes',
-          'Scripting': 'Python 3, Bash'
+          'State': 'DynamoDB (Locking)',
+          'DNS': 'Route 53'
+        }
+      }
+    },
+    {
+      id: 'svc-03-vxlan',
+      name: 'vxlan-ipvlan-migration',
+      type: 'Network Migration',
+      status: 'completed',
+      uptime: '100%',
+      region: 'on-prem',
+      description: 'Executed critical migration of 100+ network devices from VXLAN to IPVLAN protocols, resulting in 20% improvement in network throughput. Utilized Ansible for configuration drift management.',
+      tech: ['Ansible', 'F5 BIG-IP', 'Linux', 'Networking'],
+      github: null,
+      stats: { throughput: '+20%', devices: 100 },
+      details: {
+        features: [
+          'VXLAN to IPVLAN Protocol Migration',
+          '100+ Network Devices Migrated',
+          'Configuration Drift Management (Ansible)',
+          'Staged Cutovers with Linux Namespaces',
+          'Zero-Downtime Migration Strategy',
+          'Service Availability Maintained',
+        ],
+        modes: [
+          { name: 'Automation', desc: 'Ansible Playbooks', icon: Box },
+          { name: 'Load Balancer', desc: 'F5 BIG-IP', icon: Server },
+          { name: 'Networking', desc: 'Linux Namespaces', icon: Network },
+        ],
+        stack: {
+          'Automation': 'Ansible >= 2.9',
+          'Load Balancer': 'F5 BIG-IP (LTM, GTM)',
+          'OS': 'Linux (RHEL8)',
+          'Protocol': 'VXLAN → IPVLAN'
         }
       }
     },
@@ -61,8 +119,8 @@ const Projects = () => {
 
   const getActiveTab = (projectId) => {
     if (projectTabs[projectId]) return projectTabs[projectId]
-    // Default to 'specs' for the multi-cloud project to show details immediately
-    if (projectId === 'svc-02-multicloud') return 'specs'
+    // Default to 'specs' for projects with details to show information immediately
+    if (projectId === 'svc-01-ops-dashboard' || projectId === 'svc-02-hybrid-cloud' || projectId === 'svc-03-vxlan') return 'specs'
     return 'overview'
   }
 
@@ -73,7 +131,7 @@ const Projects = () => {
           <h2 className="text-2xl font-mono font-bold text-console-text">
             <span className="text-console-green">./</span>active_deployments
           </h2>
-          <span className="px-2 py-0.5 rounded textxs bg-console-header text-console-text">2 active</span>
+          <span className="px-2 py-0.5 rounded textxs bg-console-header text-console-text">3 active</span>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">

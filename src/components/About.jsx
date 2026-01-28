@@ -20,14 +20,14 @@ const About = () => {
           <ScrollReveal direction="left" delay={100}>
             <div className="space-y-6">
               <p className="text-lg text-gray-300 leading-relaxed">
-                I'm a passionate DevOps Engineer with expertise in cloud infrastructure, 
-                containerization, and automation. Currently pursuing my Master's in Information 
-                Technology at the University of Cincinnati, I bring hands-on experience from 
+                I'm a passionatee DevOps Engineer with expertise in cloud infrastructure,
+                containerization, and automation. Currently pursuing my Master's in Information
+                Technology at the University of Cincinnati, I bring hands-on experience from
                 Motorola Solutions where I managed large-scale infrastructure deployments.
               </p>
               <p className="text-lg text-gray-300 leading-relaxed">
-                I specialize in building resilient, scalable systems using Kubernetes, Terraform, 
-                and Ansible. My focus is on automating workflows, optimizing infrastructure, and 
+                I specialize in building resilient, scalable systems using Kubernetes, Terraform,
+                and Ansible. My focus is on automating workflows, optimizing infrastructure, and
                 implementing best practices for cloud-native applications.
               </p>
             </div>

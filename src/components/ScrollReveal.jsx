@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 
 const ScrollReveal = ({ children, delay = 0, direction = 'up', className = '' }) => {
-  // Default to true to ensure content is visible even if observer fails or JS lags
-  const [isVisible, setIsVisible] = useState(true)
+  // Start invisible to allow animation on scroll
+  const [isVisible, setIsVisible] = useState(false)
   const ref = useRef(null)
 
   useEffect(() => {

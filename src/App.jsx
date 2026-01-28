@@ -9,6 +9,8 @@ import Certifications from './components/Certifications'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 
+import ScrollReveal from './components/ScrollReveal'
+
 function App() {
   const [scrollY, setScrollY] = useState(0)
 
@@ -22,12 +24,24 @@ function App() {
     <div className="min-h-screen relative">
       <Navbar scrollY={scrollY} />
       <Hero />
-      <About />
-      <Experience />
-      <Projects />
-      <Skills />
-      <Education />
-      <Certifications />
+      <ScrollReveal>
+        <About />
+      </ScrollReveal>
+      <ScrollReveal>
+        <Experience />
+      </ScrollReveal>
+      <ScrollReveal>
+        <Projects />
+      </ScrollReveal>
+      <ScrollReveal>
+        <Skills />
+      </ScrollReveal>
+      <ScrollReveal>
+        <Education />
+      </ScrollReveal>
+      <ScrollReveal>
+        <Certifications />
+      </ScrollReveal>
       <Footer />
     </div>
   )
